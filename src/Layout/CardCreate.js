@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { createDeck } from "../utils/api";
+import { useHistory, useParams } from "react-router-dom";
+import { createCard } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 import "./DeckCreate.css";
 
-function DeckCreate() {
+function CardCreate({ parentUrl }) {
   const defaultForm = {
-    name: "",
-    description: "",
+    front: "",
+    back: "",
   };
+  const { deckId } = useParams();
 
   const [formData, setFormData] = useState(defaultForm);
   const history = useHistory();
@@ -22,42 +23,42 @@ function DeckCreate() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await createDeck(formData);
-    history.push("/");
+    await createCard(deckId, formData);
+    history.push(parentUrl);
   };
 
   const handleCancelClick = (event) => {
     event.preventDefault();
-    history.push("/");
+    history.push(parentUrl);
   };
 
   return (
     <>
       <Breadcrumbs active="Create Deck" />
       <div>
-        <div>Create Deck</div>
+        <div>Create Card</div>
         <form className="createForm" onSubmit={handleSubmit}>
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Deck Name"
-            onChange={handleChange}
-            value={formData.name}
-          ></input>
-          <label>Description</label>
+          <label>Front</label>
           <textarea
             type="text"
-            name="description"
-            placeholder="Brief description of the deck"
+            name="front"
+            placeholder="Front side of card"
+            onChange={handleChange}
+            value={formData.name}
+          ></textarea>
+          <label>Back</label>
+          <textarea
+            type="text"
+            name="back"
+            placeholder="Back side of card"
             onChange={handleChange}
             value={formData.description}
           ></textarea>
           <div>
             <button type="cancel" onClick={handleCancelClick}>
-              Cancel
+              Done
             </button>
-            <button type="submit">Submit</button>
+            <button type="submit">Save</button>
           </div>
         </form>
       </div>
@@ -65,4 +66,4 @@ function DeckCreate() {
   );
 }
 
-export default DeckCreate;
+export default CardCreate;

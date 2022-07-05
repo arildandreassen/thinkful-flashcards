@@ -1,21 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RestartDeck from "./RestartDeck";
-import NotEnoughCards from "./NotEnoughCards";
 
 function Cards({ cards }) {
-  const MIN_CARDS = 3;
-  const [enoughCards, setEnoughCards] = useState(false);
   const [deckComplete, setDeckComplete] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
   const [front, setFront] = useState(true);
   const [hasFlipped, setHasFlipped] = useState(false);
   const card = cards[cardIndex];
-
-  useEffect(() => {
-    if (cards.length >= MIN_CARDS) {
-      setEnoughCards(true);
-    }
-  }, [cards]);
 
   const handleFlip = () => {
     setFront(!front);
@@ -35,7 +26,7 @@ function Cards({ cards }) {
 
   return (
     <div>
-      {!deckComplete && enoughCards && (
+      {!deckComplete && (
         <>
           <div>
             Card {cardIndex + 1} of {cards.length}
@@ -45,8 +36,7 @@ function Cards({ cards }) {
           {hasFlipped && <button onClick={handleNext}>Next</button>}
         </>
       )}
-      {deckComplete && enoughCards && <RestartDeck />}
-      {!enoughCards && <NotEnoughCards min={MIN_CARDS} cards={cards} />}
+      {deckComplete && <RestartDeck />}
     </div>
   );
 }

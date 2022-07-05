@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./DeckList.css";
+import { DeckList } from "../utils/api";
 
 import DeckCard from "./DeckCard";
 
-function DeckList({ decks }) {
+function DeckLists() {
+  const [decks, setDecks] = useState();
+
+  useEffect(() => {
+    DeckList().then((decks) => setDecks(decks));
+  }, []);
+
   return (
     <>
       <ul>
@@ -12,16 +20,17 @@ function DeckList({ decks }) {
             Create Deck
           </button>
         </Link>
-        {decks.map((deck) => {
-          return (
-            <li key={deck.id}>
-              <DeckCard deck={deck} />
-            </li>
-          );
-        })}
+        {decks &&
+          decks.map((deck) => {
+            return (
+              <li key={deck.id}>
+                <DeckCard deck={deck} />
+              </li>
+            );
+          })}
       </ul>
     </>
   );
 }
 
-export default DeckList;
+export default DeckLists;

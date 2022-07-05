@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { createDeck } from "../utils/api";
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { readDeck, updateDeck } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
-import "./DeckCreate.css";
 
-function DeckCreate() {
+function DeckEdit({ parentUrl }) {
+  const { deckId } = useParams();
   const defaultForm = {
     name: "",
     description: "",
@@ -13,6 +13,12 @@ function DeckCreate() {
   const [formData, setFormData] = useState(defaultForm);
   const history = useHistory();
 
+  useEffect(() => {
+    readDeck(deckId).then((deck) =>
+      setFormData({ name: deck.name, description: deck.description })
+    );
+  }, [deckId]);
+
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -20,28 +26,27 @@ function DeckCreate() {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    await createDeck(formData);
-    history.push("/");
+    updateDeck({ ...formData, id: deckId });
+    history.push(parentUrl);
   };
 
   const handleCancelClick = (event) => {
     event.preventDefault();
-    history.push("/");
+    history.push(parentUrl);
   };
 
   return (
     <>
-      <Breadcrumbs active="Create Deck" />
+      <Breadcrumbs active="Edit Deck" />
       <div>
-        <div>Create Deck</div>
+        <div>Edit Deck</div>
         <form className="createForm" onSubmit={handleSubmit}>
           <label>Name</label>
           <input
             type="text"
             name="name"
-            placeholder="Deck Name"
             onChange={handleChange}
             value={formData.name}
           ></input>
@@ -49,7 +54,6 @@ function DeckCreate() {
           <textarea
             type="text"
             name="description"
-            placeholder="Brief description of the deck"
             onChange={handleChange}
             value={formData.description}
           ></textarea>
@@ -65,4 +69,4 @@ function DeckCreate() {
   );
 }
 
-export default DeckCreate;
+export default DeckEdit;
