@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, useRouteMatch } from "react-router-dom";
-import { readDeck } from "../utils/api";
+import { useParams, Link, useRouteMatch, useHistory } from "react-router-dom";
+import { deleteCard, readDeck } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 
 function Deck() {
@@ -8,13 +8,22 @@ function Deck() {
   const [deck, setDeck] = useState();
   const { url } = useRouteMatch();
   const [breadcrumbs, setBreadcrumbs] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    readDeck(deckId).then((deck) => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    readDeck(deckId, signal).then((deck) => {
       setDeck(deck);
       setBreadcrumbs([{ title: deck.name, active: true }]);
     });
+    return () => abortController.abort();
   }, [deckId]);
+
+  const handleDelete = (id) => {
+    deleteCard(id);
+    history.go(0);
+  };
 
   return (
     <>
@@ -47,7 +56,9 @@ function Deck() {
                       <Link to={`${url}/cards/${card.id}/edit`}>
                         <button>Edit</button>
                       </Link>
-                      <button>Delete</button>
+                      <button onClick={() => handleDelete(card.id)}>
+                        Delete
+                      </button>
                     </div>
                   </div>
                 );

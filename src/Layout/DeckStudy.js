@@ -13,7 +13,9 @@ function DeckStudy({ parentUrl }) {
   const [deck, setDeck] = useState();
 
   useEffect(() => {
-    readDeck(deckId).then((deck) => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    readDeck(deckId, signal).then((deck) => {
       setDeck(deck);
       if (deck.cards.length >= MIN_CARDS) {
         setEnoughCards(true);
@@ -23,7 +25,8 @@ function DeckStudy({ parentUrl }) {
         { title: "Creat Deck", active: true },
       ]);
     });
-  }, [deckId, setBreadcrumbs]);
+    return () => abortController.abort();
+  }, [deckId, setBreadcrumbs, parentUrl]);
 
   return (
     <>

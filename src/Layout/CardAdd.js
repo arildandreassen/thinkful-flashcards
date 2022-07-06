@@ -16,13 +16,16 @@ function CardAdd({ parentUrl }) {
   const history = useHistory();
 
   useEffect(() => {
-    readDeck(deckId).then((deck) => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    readDeck(deckId, signal).then((deck) => {
       setDeck(deck);
       setBreadcrumbs([
         { title: deck.name, path: "/", active: false },
         { title: "Creat Deck", active: true },
       ]);
     });
+    return () => abortController.abort();
   }, [deckId]);
 
   const handleChange = (event) => {

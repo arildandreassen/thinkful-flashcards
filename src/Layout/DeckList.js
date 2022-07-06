@@ -8,7 +8,10 @@ function DeckLists() {
   const [decks, setDecks] = useState();
 
   useEffect(() => {
-    DeckList().then((decks) => setDecks(decks));
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    DeckList(signal).then((decks) => setDecks(decks));
+    return () => abortController.abort();
   }, []);
 
   return (

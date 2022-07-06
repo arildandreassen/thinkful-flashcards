@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { createCard, readDeck, readCard, updateCard } from "../utils/api";
+import { readDeck, readCard, updateCard } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 import "./DeckCreate.css";
 
@@ -15,14 +15,17 @@ function CardEdit({ parentUrl }) {
   const history = useHistory();
 
   useEffect(() => {
-    readCard(cardId).then((card) => setFormData(card));
-    readDeck(deckId).then((deck) => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    readCard(cardId, signal).then((card) => setFormData(card));
+    readDeck(deckId, signal).then((deck) => {
       setBreadcrumbs([
         { title: deck.name, path: parentUrl, active: false },
         { title: `Edit Card ${cardId}`, active: true },
       ]);
     });
-  }, [cardId, deckId]);
+    return () => abortController.abort();
+  }, [cardId, deckId, parentUrl]);
 
   const handleChange = (event) => {
     setFormData({

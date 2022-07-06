@@ -16,7 +16,9 @@ function DeckEdit({ parentUrl }) {
   const history = useHistory();
 
   useEffect(() => {
-    readDeck(deckId)
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    readDeck(deckId, signal)
       .then((deck) => {
         setFormData({ name: deck.name, description: deck.description });
         setDeck(deck);
@@ -26,6 +28,7 @@ function DeckEdit({ parentUrl }) {
         ]);
       })
       .catch(console.log);
+    return () => abortController.abort();
   }, [deckId, setDeck, setBreadcrumbs]);
 
   const handleChange = (event) => {
