@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import "./DeckList.css";
 import { DeckList } from "../utils/api";
 import DeckCard from "./DeckCard";
+import DeckDeleteConFirmation from "./DeckDeleteConfirmation";
 
 function DeckLists() {
   const [decks, setDecks] = useState();
+  const [deleteId, setDeleteId] = useState();
+  const [deleteName, setDeleteName] = useState("");
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -26,10 +29,15 @@ function DeckLists() {
           decks.map((deck) => {
             return (
               <li key={deck.id}>
-                <DeckCard deck={deck} />
+                <DeckCard
+                  deck={deck}
+                  setDeleteId={setDeleteId}
+                  setDeleteName={setDeleteName}
+                />
               </li>
             );
           })}
+        <DeckDeleteConFirmation deleteId={deleteId} deleteName={deleteName} />
       </ul>
     </>
   );

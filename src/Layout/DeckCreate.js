@@ -15,7 +15,7 @@ function DeckCreate() {
   const history = useHistory();
 
   useEffect(() => {
-    setBreadcrumbs([{ title: "Creat Deck", active: true }]);
+    setBreadcrumbs([{ title: "Create Deck", active: true }]);
   }, [setBreadcrumbs]);
 
   const handleChange = (event) => {
@@ -40,7 +40,7 @@ function DeckCreate() {
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div>
-        <div>Create Deck</div>
+        <h1>Create Deck</h1>
         <form className="createForm" onSubmit={handleSubmit}>
           <label>Name</label>
           <input
@@ -61,10 +61,16 @@ function DeckCreate() {
             required={true}
           ></textarea>
           <div>
-            <button type="cancel" onClick={handleCancelClick}>
+            <button
+              type="cancel"
+              onClick={handleCancelClick}
+              className="btn btn-secondary"
+            >
               Cancel
             </button>
-            <button type="submit">Submit</button>
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
           </div>
         </form>
       </div>

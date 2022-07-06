@@ -1,5 +1,6 @@
 import { useState } from "react";
 import RestartDeck from "./RestartDeck";
+import "./Cards.css";
 
 function Cards({ cards }) {
   const [deckComplete, setDeckComplete] = useState(false);
@@ -25,19 +26,25 @@ function Cards({ cards }) {
   };
 
   return (
-    <div>
+    <>
       {!deckComplete && (
-        <>
-          <div>
+        <div className="study-card">
+          <h4>
             Card {cardIndex + 1} of {cards.length}
-          </div>
+          </h4>
           <div>{front ? card.front : card.back}</div>
-          <button onClick={handleFlip}>Flip</button>
-          {hasFlipped && <button onClick={handleNext}>Next</button>}
-        </>
+          <button onClick={handleFlip} className="btn btn-secondary">
+            Flip
+          </button>
+          {hasFlipped && (
+            <button onClick={handleNext} className="btn btn-primary">
+              Next
+            </button>
+          )}
+        </div>
       )}
       {deckComplete && <RestartDeck />}
-    </div>
+    </>
   );
 }
 

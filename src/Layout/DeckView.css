@@ -1,0 +1,19 @@
+.card-section {
+margin-top: 20px;
+}
+
+
+.card-sides{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+.card-sides div {
+    padding: 10px;
+}
+
+.button-margin {
+    margin-left:auto
+}

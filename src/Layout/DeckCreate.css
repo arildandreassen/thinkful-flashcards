@@ -1,5 +1,21 @@
 .createForm {
     display: flex;
     flex-direction: column;
-    /* justify-content: start; */
+}
+
+label {
+    margin-top: 10px;
+}
+
+input {
+    padding: 10px;
+}
+
+textarea {
+    padding: 10px
+}
+
+button {
+    margin-top: 10px;
+    margin-right: 10px;
 }

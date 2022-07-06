@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { readDeck, updateDeck } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
+import "./DeckEdit.css";
 
 function DeckEdit({ parentUrl }) {
   const { deckId } = useParams();
@@ -54,7 +55,7 @@ function DeckEdit({ parentUrl }) {
       {deck && (
         <div>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
-          <div>Edit Deck</div>
+          <h1>Edit Deck</h1>
           <form className="createForm" onSubmit={handleSubmit}>
             <label>Name</label>
             <input
@@ -73,10 +74,16 @@ function DeckEdit({ parentUrl }) {
               required={true}
             ></textarea>
             <div>
-              <button type="cancel" onClick={handleCancelClick}>
+              <button
+                type="cancel"
+                onClick={handleCancelClick}
+                className="btn btn-secondary"
+              >
                 Cancel
               </button>
-              <button type="submit">Submit</button>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
             </div>
           </form>
         </div>

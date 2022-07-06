@@ -4,6 +4,7 @@ import { readDeck } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 import Cards from "./Cards";
 import NotEnoughCards from "./NotEnoughCards";
+import "./DeckStudy.css";
 
 function DeckStudy({ parentUrl }) {
   const MIN_CARDS = 3;

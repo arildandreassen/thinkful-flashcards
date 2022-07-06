@@ -61,7 +61,7 @@ function CardAddEdit({ parentUrl, addOrEdit }) {
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div>
-        <div>{isAdd ? `${deck.name}: Add Card` : "Edit Card"}</div>
+        <h2>{isAdd ? `${deck.name}: Add Card` : "Edit Card"}</h2>
         <form className="createForm" onSubmit={handleSubmit}>
           <label>Front</label>
           <textarea
@@ -82,10 +82,16 @@ function CardAddEdit({ parentUrl, addOrEdit }) {
             required={true}
           ></textarea>
           <div>
-            <button type="cancel" onClick={handleCancelClick}>
+            <button
+              type="cancel"
+              onClick={handleCancelClick}
+              className="btn btn-secondary"
+            >
               Done
             </button>
-            <button type="submit">Save</button>
+            <button type="submit" className="btn btn-primary">
+              Save
+            </button>
           </div>
         </form>
       </div>
