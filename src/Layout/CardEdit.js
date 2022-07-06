@@ -58,6 +58,7 @@ function CardEdit({ parentUrl }) {
             placeholder="Front side of card"
             onChange={handleChange}
             value={formData.front}
+            required={true}
           ></textarea>
           <label>Back</label>
           <textarea
@@ -66,6 +67,7 @@ function CardEdit({ parentUrl }) {
             placeholder="Back side of card"
             onChange={handleChange}
             value={formData.back}
+            required={true}
           ></textarea>
           <div>
             <button type="cancel" onClick={handleCancelClick}>

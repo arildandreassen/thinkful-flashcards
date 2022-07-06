@@ -27,8 +27,8 @@ function DeckCreate() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await createDeck(formData);
-    history.push("/");
+    const deck = await createDeck(formData);
+    history.push(`/decks/${deck.id}`);
   };
 
   const handleCancelClick = (event) => {
@@ -49,6 +49,7 @@ function DeckCreate() {
             placeholder="Deck Name"
             onChange={handleChange}
             value={formData.name}
+            required={true}
           ></input>
           <label>Description</label>
           <textarea
@@ -57,6 +58,7 @@ function DeckCreate() {
             placeholder="Brief description of the deck"
             onChange={handleChange}
             value={formData.description}
+            required={true}
           ></textarea>
           <div>
             <button type="cancel" onClick={handleCancelClick}>

@@ -13,7 +13,11 @@ const RestartDeck = () => {
 
   return (
     <div>
-      <div>Restart Deck?</div>
+      <p>
+        Restart Cards?
+        <br /> Click 'No' to return to the home page
+        <br /> Click 'Yes' to start over
+      </p>
       <button onClick={handleYes}>Yes</button>
       <button onClick={handleNo}>No</button>
     </div>

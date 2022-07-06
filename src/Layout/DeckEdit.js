@@ -62,6 +62,7 @@ function DeckEdit({ parentUrl }) {
               name="name"
               onChange={handleChange}
               value={formData.name}
+              required={true}
             ></input>
             <label>Description</label>
             <textarea
@@ -69,6 +70,7 @@ function DeckEdit({ parentUrl }) {
               name="description"
               onChange={handleChange}
               value={formData.description}
+              required={true}
             ></textarea>
             <div>
               <button type="cancel" onClick={handleCancelClick}>

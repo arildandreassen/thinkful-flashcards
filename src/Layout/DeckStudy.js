@@ -22,7 +22,7 @@ function DeckStudy({ parentUrl }) {
       }
       setBreadcrumbs([
         { title: deck.name, path: parentUrl, active: false },
-        { title: "Creat Deck", active: true },
+        { title: "Study", active: true },
       ]);
     });
     return () => abortController.abort();
