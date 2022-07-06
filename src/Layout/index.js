@@ -11,9 +11,18 @@ function Layout() {
   const [decks, setDecks] = useState([]);
 
   useEffect(() => {
-    fetch("//localhost:8080/decks")
+    const abortController = new AbortController();
+    fetch("//localhost:8080/decks", { signal: abortController.signal })
       .then((response) => response.json())
-      .then((decks) => setDecks(decks));
+      .then((decks) => setDecks(decks))
+      .catch((error) => {
+        if (error.name === "AbortError") {
+          // Ignore this error
+        } else {
+          throw error;
+        }
+      });
+    return () => abortController.abort();
   }, []);
 
   return (

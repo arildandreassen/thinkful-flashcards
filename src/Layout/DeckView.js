@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useRouteMatch, useHistory } from "react-router-dom";
-import { deleteCard, deleteDeck, readDeck } from "../utils/api";
+import { deleteCard, readDeck } from "../utils/api";
 import DeckDeleteConFirmation from "./DeckDeleteConfirmation";
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -26,11 +26,6 @@ function Deck() {
     deleteCard(id);
     history.go(0);
   };
-
-  // const handleDeckDelete = (id) => {
-  //   deleteDeck(id);
-  //   history.push("/");
-  // };
 
   const handleDeckDelete = () => {
     setShowDelete(true);

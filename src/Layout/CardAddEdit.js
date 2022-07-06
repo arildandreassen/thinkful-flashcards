@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { readDeck, readCard, updateCard } from "../utils/api";
+import { readDeck, readCard, updateCard, createCard } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 import "./DeckCreate.css";
 
-function CardEdit({ parentUrl }) {
+function CardAddEdit({ parentUrl, addOrEdit }) {
+  const isAdd = addOrEdit === "add" ? true : false;
   const defaultForm = {
     front: "",
     back: "",
   };
   const { cardId, deckId } = useParams();
+  const [deck, setDeck] = useState({ name: "", description: "" });
   const [formData, setFormData] = useState(defaultForm);
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const history = useHistory();
@@ -17,15 +19,20 @@ function CardEdit({ parentUrl }) {
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
-    readCard(cardId, signal).then((card) => setFormData(card));
+
+    if (!isAdd) {
+      readCard(cardId, signal).then((card) => setFormData(card));
+    }
     readDeck(deckId, signal).then((deck) => {
+      const title = isAdd ? `Add Card` : `Edit Card ${cardId}`;
+      setDeck(deck);
       setBreadcrumbs([
         { title: deck.name, path: parentUrl, active: false },
-        { title: `Edit Card ${cardId}`, active: true },
+        { title: title, active: true },
       ]);
     });
     return () => abortController.abort();
-  }, [cardId, deckId, parentUrl]);
+  }, [cardId, deckId, parentUrl, isAdd]);
 
   const handleChange = (event) => {
     setFormData({
@@ -36,8 +43,13 @@ function CardEdit({ parentUrl }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await updateCard(formData);
-    history.push(parentUrl);
+    if (isAdd) {
+      await createCard(deckId, formData);
+      setFormData(defaultForm);
+    } else {
+      await updateCard(formData);
+      history.push(parentUrl);
+    }
   };
 
   const handleCancelClick = (event) => {
@@ -49,7 +61,7 @@ function CardEdit({ parentUrl }) {
     <>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div>
-        <div>Edit Card</div>
+        <div>{isAdd ? `${deck.name}: Add Card` : "Edit Card"}</div>
         <form className="createForm" onSubmit={handleSubmit}>
           <label>Front</label>
           <textarea
@@ -81,4 +93,4 @@ function CardEdit({ parentUrl }) {
   );
 }
 
-export default CardEdit;
+export default CardAddEdit;

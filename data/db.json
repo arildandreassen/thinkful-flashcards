@@ -48,8 +48,8 @@
       "id": 5
     },
     {
-      "front": "rg",
-      "back": "erg",
+      "front": "rg45435435",
+      "back": "erg345435435435345435",
       "deckId": 3,
       "id": 6
     },
@@ -64,6 +64,18 @@
       "back": "hmhmhmhmhm",
       "deckId": 3,
       "id": 8
+    },
+    {
+      "front": "ergerg",
+      "back": "eergerg",
+      "deckId": 3,
+      "id": 9
+    },
+    {
+      "front": "ergegrmjtmtm",
+      "back": "ergergergergmyty",
+      "deckId": 3,
+      "id": 10
     }
   ]
 }
