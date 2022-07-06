@@ -1,25 +1,29 @@
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import DeckStudy from "./DeckStudy";
-import Deck from "./Deck";
+import DeckView from "./DeckView";
 import NotFound from "./NotFound";
 import DeckEdit from "./DeckEdit";
-import CardCreate from "./CardCreate";
+import CardAdd from "./CardAdd";
+import CardEdit from "./CardEdit";
 
 function DeckRouter({ decks }) {
   const { path, url } = useRouteMatch();
   return (
     <Switch>
       <Route exact path={`${path}/`}>
-        <Deck decks={decks} />
+        <DeckView decks={decks} />
       </Route>
       <Route path={`${path}/study`}>
         <DeckStudy parentUrl={url} />
       </Route>
       <Route path={`${path}/edit`}>
-        <DeckEdit decks={decks} parentUrl={url} />
+        <DeckEdit parentUrl={url} />
       </Route>
       <Route path={`${path}/cards/new`}>
-        <CardCreate decks={decks} parentUrl={url} />
+        <CardAdd parentUrl={url} />
+      </Route>
+      <Route path={`${path}/cards/:cardId/edit`}>
+        <CardEdit parentUrl={url} />
       </Route>
       <Route>
         <NotFound />

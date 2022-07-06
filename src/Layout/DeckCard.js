@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import DeckDeleteConFirmation from "./DeckDeleteConfirmation";
 
 function DeckCard({ deck }) {
-  const { id, name, description } = deck;
+  const { id, name, description, cards } = deck;
   const [showDelete, setShowDelete] = useState(false);
 
   const handleDelete = () => {
@@ -18,7 +18,10 @@ function DeckCard({ deck }) {
   return (
     <>
       <div className="card">
-        <div>{name}</div>
+        <header>
+          <div>{name}</div>
+          <div>{cards.length} cards</div>
+        </header>
         <div>{description}</div>
         <div>
           <Link to={`/decks/${id}`}>

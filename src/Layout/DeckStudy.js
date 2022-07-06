@@ -8,6 +8,7 @@ import NotEnoughCards from "./NotEnoughCards";
 function DeckStudy({ parentUrl }) {
   const MIN_CARDS = 3;
   const [enoughCards, setEnoughCards] = useState(false);
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
   const { deckId } = useParams();
   const [deck, setDeck] = useState();
 
@@ -17,12 +18,16 @@ function DeckStudy({ parentUrl }) {
       if (deck.cards.length >= MIN_CARDS) {
         setEnoughCards(true);
       }
+      setBreadcrumbs([
+        { title: deck.name, path: parentUrl, active: false },
+        { title: "Creat Deck", active: true },
+      ]);
     });
-  }, [deckId]);
+  }, [deckId, setBreadcrumbs]);
 
   return (
     <>
-      <Breadcrumbs />
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       {deck && enoughCards && (
         <div>
           <h1>Study: {deck.name}</h1>

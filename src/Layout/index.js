@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "./Header";
 import DeckList from "./DeckList";
-// import NotFound from "./NotFound";
+import NotFound from "./NotFound";
 import DeckCreate from "./DeckCreate";
 import DeckRouter from "./DeckRouter";
 
@@ -29,6 +29,9 @@ function Layout() {
           </Route>
           <Route path="/decks/:deckId">
             <DeckRouter decks={decks} />
+          </Route>
+          <Route>
+            <NotFound />
           </Route>
         </Switch>
       </div>

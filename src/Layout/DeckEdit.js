@@ -5,6 +5,8 @@ import Breadcrumbs from "./Breadcrumbs";
 
 function DeckEdit({ parentUrl }) {
   const { deckId } = useParams();
+  const [deck, setDeck] = useState();
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
   const defaultForm = {
     name: "",
     description: "",
@@ -14,10 +16,17 @@ function DeckEdit({ parentUrl }) {
   const history = useHistory();
 
   useEffect(() => {
-    readDeck(deckId).then((deck) =>
-      setFormData({ name: deck.name, description: deck.description })
-    );
-  }, [deckId]);
+    readDeck(deckId)
+      .then((deck) => {
+        setFormData({ name: deck.name, description: deck.description });
+        setDeck(deck);
+        setBreadcrumbs([
+          { title: deck.name, path: "/", active: false },
+          { title: "Edit Deck", active: true },
+        ]);
+      })
+      .catch(console.log);
+  }, [deckId, setDeck, setBreadcrumbs]);
 
   const handleChange = (event) => {
     setFormData({
@@ -39,32 +48,34 @@ function DeckEdit({ parentUrl }) {
 
   return (
     <>
-      <Breadcrumbs active="Edit Deck" />
-      <div>
-        <div>Edit Deck</div>
-        <form className="createForm" onSubmit={handleSubmit}>
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            value={formData.name}
-          ></input>
-          <label>Description</label>
-          <textarea
-            type="text"
-            name="description"
-            onChange={handleChange}
-            value={formData.description}
-          ></textarea>
-          <div>
-            <button type="cancel" onClick={handleCancelClick}>
-              Cancel
-            </button>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
+      {deck && (
+        <div>
+          <Breadcrumbs breadcrumbs={breadcrumbs} />
+          <div>Edit Deck</div>
+          <form className="createForm" onSubmit={handleSubmit}>
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              onChange={handleChange}
+              value={formData.name}
+            ></input>
+            <label>Description</label>
+            <textarea
+              type="text"
+              name="description"
+              onChange={handleChange}
+              value={formData.description}
+            ></textarea>
+            <div>
+              <button type="cancel" onClick={handleCancelClick}>
+                Cancel
+              </button>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      )}
     </>
   );
 }

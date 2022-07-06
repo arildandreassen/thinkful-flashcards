@@ -7,18 +7,20 @@ function Deck() {
   const { deckId } = useParams();
   const [deck, setDeck] = useState();
   const { url } = useRouteMatch();
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
 
   useEffect(() => {
     readDeck(deckId).then((deck) => {
       setDeck(deck);
+      setBreadcrumbs([{ title: deck.name, active: true }]);
     });
   }, [deckId]);
 
   return (
     <>
-      <Breadcrumbs active="React Router" />
       {deck && (
         <div>
+          <Breadcrumbs breadcrumbs={breadcrumbs} />
           <div>{deck.name}</div>
           <div>{deck.description}</div>
           <div>
@@ -37,7 +39,18 @@ function Deck() {
             <h1>Cards</h1>
             <div>
               {deck.cards.map((card, index) => {
-                return <div key={index}>{card.front}</div>;
+                return (
+                  <div key={index}>
+                    <div>{card.front}</div>
+                    <div>{card.back}</div>
+                    <div>
+                      <Link to={`${url}/cards/${card.id}/edit`}>
+                        <button>Edit</button>
+                      </Link>
+                      <button>Delete</button>
+                    </div>
+                  </div>
+                );
               })}
             </div>
           </div>

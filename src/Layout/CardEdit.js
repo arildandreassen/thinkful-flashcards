@@ -1,18 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { createCard } from "../utils/api";
+import { createCard, readDeck, readCard, updateCard } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
 import "./DeckCreate.css";
 
-function CardCreate({ parentUrl }) {
+function CardEdit({ parentUrl }) {
   const defaultForm = {
     front: "",
     back: "",
   };
-  const { deckId } = useParams();
-
+  const { cardId, deckId } = useParams();
   const [formData, setFormData] = useState(defaultForm);
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
   const history = useHistory();
+
+  useEffect(() => {
+    readCard(cardId).then((card) => setFormData(card));
+    readDeck(deckId).then((deck) => {
+      setBreadcrumbs([
+        { title: deck.name, path: parentUrl, active: false },
+        { title: `Edit Card ${cardId}`, active: true },
+      ]);
+    });
+  }, [cardId, deckId]);
 
   const handleChange = (event) => {
     setFormData({
@@ -23,7 +33,7 @@ function CardCreate({ parentUrl }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await createCard(deckId, formData);
+    await updateCard(formData);
     history.push(parentUrl);
   };
 
@@ -34,9 +44,9 @@ function CardCreate({ parentUrl }) {
 
   return (
     <>
-      <Breadcrumbs active="Create Deck" />
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div>
-        <div>Create Card</div>
+        <div>Edit Card</div>
         <form className="createForm" onSubmit={handleSubmit}>
           <label>Front</label>
           <textarea
@@ -44,7 +54,7 @@ function CardCreate({ parentUrl }) {
             name="front"
             placeholder="Front side of card"
             onChange={handleChange}
-            value={formData.name}
+            value={formData.front}
           ></textarea>
           <label>Back</label>
           <textarea
@@ -52,7 +62,7 @@ function CardCreate({ parentUrl }) {
             name="back"
             placeholder="Back side of card"
             onChange={handleChange}
-            value={formData.description}
+            value={formData.back}
           ></textarea>
           <div>
             <button type="cancel" onClick={handleCancelClick}>
@@ -66,4 +76,4 @@ function CardCreate({ parentUrl }) {
   );
 }
 
-export default CardCreate;
+export default CardEdit;

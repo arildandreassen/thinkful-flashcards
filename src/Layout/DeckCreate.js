@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createDeck } from "../utils/api";
 import Breadcrumbs from "./Breadcrumbs";
@@ -11,7 +11,12 @@ function DeckCreate() {
   };
 
   const [formData, setFormData] = useState(defaultForm);
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
   const history = useHistory();
+
+  useEffect(() => {
+    setBreadcrumbs([{ title: "Creat Deck", active: true }]);
+  }, [setBreadcrumbs]);
 
   const handleChange = (event) => {
     setFormData({
@@ -33,7 +38,7 @@ function DeckCreate() {
 
   return (
     <>
-      <Breadcrumbs active="Create Deck" />
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div>
         <div>Create Deck</div>
         <form className="createForm" onSubmit={handleSubmit}>

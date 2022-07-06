@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./DeckList.css";
 import { DeckList } from "../utils/api";
-
 import DeckCard from "./DeckCard";
 
 function DeckLists() {
