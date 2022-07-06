@@ -1,13 +1,14 @@
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { deleteDeck } from "../utils/api";
 
 const DeckDeleteConFirmation = ({ id, handleCancel }) => {
   const history = useHistory();
   const location = useLocation();
+  const { url } = useRouteMatch();
 
   const handleDelete = () => {
     deleteDeck(id);
-    history.go(location.pathname);
+    url === "/" ? history.go(location.pathname) : history.push("/");
   };
 
   return (

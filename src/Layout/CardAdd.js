@@ -22,7 +22,7 @@ function CardAdd({ parentUrl }) {
       setDeck(deck);
       setBreadcrumbs([
         { title: deck.name, path: "/", active: false },
-        { title: "Creat Deck", active: true },
+        { title: "Add Card", active: true },
       ]);
     });
     return () => abortController.abort();
@@ -38,7 +38,7 @@ function CardAdd({ parentUrl }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await createCard(deckId, formData);
-    history.push(parentUrl);
+    setFormData(defaultForm);
   };
 
   const handleCancelClick = (event) => {
@@ -60,6 +60,7 @@ function CardAdd({ parentUrl }) {
             placeholder="Front side of card"
             onChange={handleChange}
             value={formData.front}
+            required={true}
           ></textarea>
           <label>Back</label>
           <textarea
@@ -68,6 +69,7 @@ function CardAdd({ parentUrl }) {
             placeholder="Back side of card"
             onChange={handleChange}
             value={formData.back}
+            required={true}
           ></textarea>
           <div>
             <button type="cancel" onClick={handleCancelClick}>

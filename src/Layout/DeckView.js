@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useRouteMatch, useHistory } from "react-router-dom";
-import { deleteCard, readDeck } from "../utils/api";
+import { deleteCard, deleteDeck, readDeck } from "../utils/api";
+import DeckDeleteConFirmation from "./DeckDeleteConfirmation";
 import Breadcrumbs from "./Breadcrumbs";
 
 function Deck() {
@@ -9,6 +10,7 @@ function Deck() {
   const { url } = useRouteMatch();
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const history = useHistory();
+  const [showDelete, setShowDelete] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -20,9 +22,22 @@ function Deck() {
     return () => abortController.abort();
   }, [deckId]);
 
-  const handleDelete = (id) => {
+  const handleCardDelete = (id) => {
     deleteCard(id);
     history.go(0);
+  };
+
+  // const handleDeckDelete = (id) => {
+  //   deleteDeck(id);
+  //   history.push("/");
+  // };
+
+  const handleDeckDelete = () => {
+    setShowDelete(true);
+  };
+
+  const handleDeckDeleteCancel = () => {
+    setShowDelete(false);
   };
 
   return (
@@ -42,7 +57,7 @@ function Deck() {
             <Link to={`${url}/cards/new`}>
               <button>Add Cards</button>
             </Link>
-            <button>Delete</button>
+            <button onClick={handleDeckDelete}>Delete</button>
           </div>
           <div>
             <h1>Cards</h1>
@@ -56,7 +71,7 @@ function Deck() {
                       <Link to={`${url}/cards/${card.id}/edit`}>
                         <button>Edit</button>
                       </Link>
-                      <button onClick={() => handleDelete(card.id)}>
+                      <button onClick={() => handleCardDelete(card.id)}>
                         Delete
                       </button>
                     </div>
@@ -66,6 +81,12 @@ function Deck() {
             </div>
           </div>
         </div>
+      )}
+      {showDelete && (
+        <DeckDeleteConFirmation
+          id={deckId}
+          handleCancel={handleDeckDeleteCancel}
+        />
       )}
     </>
   );
