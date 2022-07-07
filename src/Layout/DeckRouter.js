@@ -4,7 +4,8 @@ import DeckStudy from "./DeckStudy/DeckStudy";
 import DeckView from "./DeckView/DeckView";
 import NotFound from "./NotFound";
 import DeckEdit from "./DeckView/DeckEdit";
-import CardAddEdit from "./Cards/CardAddEdit";
+import CardCreate from "./Cards/CardCreate";
+import CardEdit from "./Cards/CardEdit";
 
 function DeckRouter({ decks }) {
   const { path, url } = useRouteMatch();
@@ -20,10 +21,10 @@ function DeckRouter({ decks }) {
         <DeckEdit parentUrl={url} />
       </Route>
       <Route path={`${path}/cards/new`}>
-        <CardAddEdit parentUrl={url} addOrEdit="add" />
+        <CardCreate parentUrl={url} />
       </Route>
       <Route path={`${path}/cards/:cardId/edit`}>
-        <CardAddEdit parentUrl={url} addOrEdit="edit" />
+        <CardEdit parentUrl={url} />
       </Route>
       <Route>
         <NotFound />
