@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./DeckList.css";
-import { DeckList } from "../utils/api";
-import DeckCard from "./DeckCard";
-import DeckDeleteConFirmation from "./DeckDeleteConfirmation";
+import { DeckList } from "../../utils/api";
+import DeckSummary from "./DeckSummary";
+import DeckDeleteConFirmation from "../DeckDeleteConfirmation";
 
 function DeckLists() {
   const [decks, setDecks] = useState();
@@ -29,7 +29,7 @@ function DeckLists() {
           decks.map((deck) => {
             return (
               <li key={deck.id}>
-                <DeckCard
+                <DeckSummary
                   deck={deck}
                   setDeleteId={setDeleteId}
                   setDeleteName={setDeleteName}

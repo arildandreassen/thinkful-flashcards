@@ -1,11 +1,9 @@
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import DeckStudy from "./DeckStudy";
-import DeckView from "./DeckView";
+import DeckStudy from "./DeckStudy/DeckStudy";
+import DeckView from "./DeckView/DeckView";
 import NotFound from "./NotFound";
-import DeckEdit from "./DeckEdit";
-import CardAddEdit from "./CardAddEdit";
-// import CardAdd from "./CardAdd";
-// import CardEdit from "./CardEdit";
+import DeckEdit from "./DeckView/DeckEdit";
+import CardAddEdit from "./Cards/CardAddEdit";
 
 function DeckRouter({ decks }) {
   const { path, url } = useRouteMatch();

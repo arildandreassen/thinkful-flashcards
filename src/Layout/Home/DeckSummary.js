@@ -1,7 +1,7 @@
-import "./DeckCard.css";
+import "./DeckSummary.css";
 import { Link } from "react-router-dom";
 
-function DeckCard({ deck, setDeleteId, setDeleteName }) {
+function DeckSummary({ deck, setDeleteId, setDeleteName }) {
   const { id, name, description, cards } = deck;
 
   const handleDelete = () => {
@@ -38,4 +38,4 @@ function DeckCard({ deck, setDeleteId, setDeleteName }) {
   );
 }
 
-export default DeckCard;
+export default DeckSummary;

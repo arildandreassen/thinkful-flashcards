@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { createDeck } from "../utils/api";
-import Breadcrumbs from "./Breadcrumbs";
+import { createDeck } from "../../utils/api";
+import Breadcrumbs from "../Breadcrumbs";
 import "./DeckCreate.css";
 
 function DeckCreate() {

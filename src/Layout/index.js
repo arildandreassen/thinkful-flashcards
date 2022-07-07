@@ -2,9 +2,9 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Header from "./Header";
-import DeckList from "./DeckList";
+import DeckList from "./Home/DeckList";
 import NotFound from "./NotFound";
-import DeckCreate from "./DeckCreate";
+import DeckCreate from "./DeckCreate/DeckCreate.js";
 import DeckRouter from "./DeckRouter";
 
 function Layout() {

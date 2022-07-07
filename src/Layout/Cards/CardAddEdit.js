@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { readDeck, readCard, updateCard, createCard } from "../utils/api";
-import Breadcrumbs from "./Breadcrumbs";
-import "./DeckCreate.css";
+import { readDeck, readCard, updateCard, createCard } from "../../utils/api";
+import Breadcrumbs from "../Breadcrumbs";
 
 function CardAddEdit({ parentUrl, addOrEdit }) {
   const isAdd = addOrEdit === "add" ? true : false;

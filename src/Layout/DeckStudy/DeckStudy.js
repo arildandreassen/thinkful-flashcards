@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { readDeck } from "../utils/api";
-import Breadcrumbs from "./Breadcrumbs";
-import Cards from "./Cards";
+import { readDeck } from "../../utils/api";
+import Breadcrumbs from "../Breadcrumbs";
+import StudyCards from "./StudyCards";
 import NotEnoughCards from "./NotEnoughCards";
-import "./DeckStudy.css";
 
 function DeckStudy({ parentUrl }) {
   const MIN_CARDS = 3;
@@ -35,7 +34,7 @@ function DeckStudy({ parentUrl }) {
       {deck && enoughCards && (
         <div>
           <h1>Study: {deck.name}</h1>
-          <Cards cards={deck.cards} />
+          <StudyCards cards={deck.cards} />
         </div>
       )}
       {deck && !enoughCards && (

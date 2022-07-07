@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { readDeck, updateDeck } from "../utils/api";
-import Breadcrumbs from "./Breadcrumbs";
+import { readDeck, updateDeck } from "../../utils/api";
+import Breadcrumbs from "../Breadcrumbs";
 import "./DeckEdit.css";
 
 function DeckEdit({ parentUrl }) {

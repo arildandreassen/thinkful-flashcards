@@ -1,8 +1,8 @@
 import { useState } from "react";
 import RestartDeck from "./RestartDeck";
-import "./Cards.css";
+import "./StudyCards.css";
 
-function Cards({ cards }) {
+function StudyCards({ cards }) {
   const [deckComplete, setDeckComplete] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
   const [front, setFront] = useState(true);
@@ -48,4 +48,4 @@ function Cards({ cards }) {
   );
 }
 
-export default Cards;
+export default StudyCards;
