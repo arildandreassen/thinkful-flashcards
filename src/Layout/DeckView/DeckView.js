@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, Link, useRouteMatch, useHistory } from "react-router-dom";
 import { deleteCard, readDeck } from "../../utils/api";
@@ -25,7 +26,7 @@ function Deck() {
   };
 
   return (
-    <>
+    <div>
       {deck && (
         <div>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
@@ -81,7 +82,7 @@ function Deck() {
           <DeckDeleteConFirmation deleteId={deckId} deleteName={deck.name} />
         </div>
       )}
-    </>
+    </div>
   );
 }
 

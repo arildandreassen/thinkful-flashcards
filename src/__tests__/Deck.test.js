@@ -9,7 +9,7 @@ import {
   createDeck,
   deleteCard,
   deleteDeck,
-  DeckList,
+  listDecks,
   readCard,
   readDeck,
   updateCard,
@@ -37,7 +37,7 @@ describe("Decks", () => {
     deleteDeck.mockResolvedValue({
       name: "Default mock response. If you see this, you probably do not need this API call.",
     });
-    DeckList.mockResolvedValue([
+    listDecks.mockResolvedValue([
       {
         front:
           "Default mock response. If you see this, you probably do not need this API call.",

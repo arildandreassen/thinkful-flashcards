@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import RestartDeck from "./RestartDeck";
 import "./StudyCards.css";

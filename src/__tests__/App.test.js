@@ -9,7 +9,7 @@ import {
   createDeck,
   deleteCard,
   deleteDeck,
-  DeckList,
+  listDecks,
   readCard,
   readDeck,
   updateCard,
@@ -36,7 +36,7 @@ describe("App", () => {
     deleteDeck.mockResolvedValue({
       name: "Default mock response. If you see this, you probably do not need this API call.",
     });
-    DeckList.mockResolvedValue([
+    listDecks.mockResolvedValue([
       {
         front:
           "Default mock response. If you see this, you probably do not need this API call.",
@@ -87,7 +87,7 @@ describe("App", () => {
 
     const mockDecksPromise = Promise.resolve(mockDecks);
 
-    DeckList.mockImplementation(() => mockDecksPromise);
+    listDecks.mockImplementation(() => mockDecksPromise);
 
     const history = createMemoryHistory();
     render(

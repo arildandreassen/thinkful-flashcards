@@ -1,17 +1,18 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./DeckList.css";
-import { DeckList } from "../../utils/api";
+import { listDecks } from "../../utils/api";
 import DeckSummary from "./DeckSummary";
 import DeckDeleteConFirmation from "../DeckDeleteConfirmation";
+import "./DeckList.css";
 
-function DeckLists() {
+function DeckList() {
   const [decks, setDecks] = useState();
   const [deleteId, setDeleteId] = useState();
   const [deleteName, setDeleteName] = useState("");
 
   useEffect(() => {
-    DeckList().then((decks) => setDecks(decks));
+    listDecks().then((decks) => setDecks(decks));
   }, []);
 
   return (
@@ -40,4 +41,4 @@ function DeckLists() {
   );
 }
 
-export default DeckLists;
+export default DeckList;
