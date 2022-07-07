@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "./Header";
 import DeckList from "./Home/DeckList";
 import NotFound from "./NotFound";
@@ -10,23 +10,8 @@ import DeckRouter from "./DeckRouter";
 function Layout() {
   const [decks, setDecks] = useState([]);
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    fetch("//localhost:8080/decks", { signal: abortController.signal })
-      .then((response) => response.json())
-      .then((decks) => setDecks(decks))
-      .catch((error) => {
-        if (error.name === "AbortError") {
-          // Ignore this error
-        } else {
-          throw error;
-        }
-      });
-    return () => abortController.abort();
-  }, []);
-
   return (
-    <>
+    <div>
       <Header />
       <div className="container">
         <Switch>
@@ -44,7 +29,7 @@ function Layout() {
           </Route>
         </Switch>
       </div>
-    </>
+    </div>
   );
 }
 

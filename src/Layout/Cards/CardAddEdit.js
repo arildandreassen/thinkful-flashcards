@@ -16,13 +16,10 @@ function CardAddEdit({ parentUrl, addOrEdit }) {
   const history = useHistory();
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-
     if (!isAdd) {
-      readCard(cardId, signal).then((card) => setFormData(card));
+      readCard(cardId).then((card) => setFormData(card));
     }
-    readDeck(deckId, signal).then((deck) => {
+    readDeck(deckId).then((deck) => {
       const title = isAdd ? `Add Card` : `Edit Card ${cardId}`;
       setDeck(deck);
       setBreadcrumbs([
@@ -30,7 +27,6 @@ function CardAddEdit({ parentUrl, addOrEdit }) {
         { title: title, active: true },
       ]);
     });
-    return () => abortController.abort();
   }, [cardId, deckId, parentUrl, isAdd]);
 
   const handleChange = (event) => {
@@ -57,7 +53,7 @@ function CardAddEdit({ parentUrl, addOrEdit }) {
   };
 
   return (
-    <>
+    <div>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div>
         <h2>{isAdd ? `${deck.name}: Add Card` : "Edit Card"}</h2>
@@ -94,7 +90,7 @@ function CardAddEdit({ parentUrl, addOrEdit }) {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -37,7 +37,7 @@ function DeckCreate() {
   };
 
   return (
-    <>
+    <div>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       <div>
         <h1>Create Deck</h1>
@@ -74,7 +74,7 @@ function DeckCreate() {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 

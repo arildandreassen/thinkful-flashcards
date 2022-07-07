@@ -26,7 +26,7 @@ function StudyCards({ cards }) {
   };
 
   return (
-    <>
+    <div>
       {!deckComplete && (
         <div className="study-card">
           <h4>
@@ -44,7 +44,7 @@ function StudyCards({ cards }) {
         </div>
       )}
       {deckComplete && <RestartDeck />}
-    </>
+    </div>
   );
 }
 

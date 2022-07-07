@@ -10,7 +10,7 @@ function DeckSummary({ deck, setDeleteId, setDeleteName }) {
   };
 
   return (
-    <>
+    <div>
       <div className="card">
         <header>
           <h5>{name}</h5>
@@ -34,7 +34,7 @@ function DeckSummary({ deck, setDeleteId, setDeleteName }) {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

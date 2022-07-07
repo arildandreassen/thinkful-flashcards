@@ -13,9 +13,7 @@ function DeckStudy({ parentUrl }) {
   const [deck, setDeck] = useState();
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    readDeck(deckId, signal).then((deck) => {
+    readDeck(deckId).then((deck) => {
       setDeck(deck);
       if (deck.cards.length >= MIN_CARDS) {
         setEnoughCards(true);
@@ -25,11 +23,10 @@ function DeckStudy({ parentUrl }) {
         { title: "Study", active: true },
       ]);
     });
-    return () => abortController.abort();
   }, [deckId, setBreadcrumbs, parentUrl]);
 
   return (
-    <>
+    <div>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
       {deck && enoughCards && (
         <div>
@@ -40,7 +37,7 @@ function DeckStudy({ parentUrl }) {
       {deck && !enoughCards && (
         <NotEnoughCards min={MIN_CARDS} deck={deck} parentUrl={parentUrl} />
       )}
-    </>
+    </div>
   );
 }
 

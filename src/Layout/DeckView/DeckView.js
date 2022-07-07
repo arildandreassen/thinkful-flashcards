@@ -13,13 +13,10 @@ function Deck() {
   const history = useHistory();
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    readDeck(deckId, signal).then((deck) => {
+    readDeck(deckId).then((deck) => {
       setDeck(deck);
       setBreadcrumbs([{ title: deck.name, active: true }]);
     });
-    return () => abortController.abort();
   }, [deckId]);
 
   const handleCardDelete = (id) => {

@@ -11,14 +11,11 @@ function DeckLists() {
   const [deleteName, setDeleteName] = useState("");
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    DeckList(signal).then((decks) => setDecks(decks));
-    return () => abortController.abort();
+    DeckList().then((decks) => setDecks(decks));
   }, []);
 
   return (
-    <>
+    <div>
       <ul>
         <Link to="/decks/new">
           <button type="button" className="btn btn-secondary">
@@ -39,7 +36,7 @@ function DeckLists() {
           })}
         <DeckDeleteConFirmation deleteId={deleteId} deleteName={deleteName} />
       </ul>
-    </>
+    </div>
   );
 }
 
