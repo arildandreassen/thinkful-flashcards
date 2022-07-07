@@ -14,8 +14,8 @@ const RestartDeck = () => {
 
   return (
     <div className="restart-card">
+      <h5>Restart Cards?</h5>
       <p>
-        <h5>Restart Cards?</h5>
         <br /> Click 'No' to return to the home page
         <br /> Click 'Yes' to start over
       </p>
